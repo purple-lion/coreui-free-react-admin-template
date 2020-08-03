@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { inject, observer } from "mobx-react"
 import {
   CCreateElement,
   CSidebar,
@@ -13,18 +13,17 @@ import {
 } from '@coreui/react'
 
 import CIcon from '@coreui/icons-react'
-
 // sidebar nav config
 import navigation from './_nav'
 
-const TheSidebar = () => {
-  const dispatch = useDispatch()
-  const show = useSelector(state => state.sidebarShow)
+const TheSidebar = inject("store")(observer((props) => {
+  const { store } = props
+  const show = store.sidebarShow
 
   return (
     <CSidebar
       show={show}
-      onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
+      onShowChange={(val) => store.setSidebarShow(val)}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
@@ -53,6 +52,6 @@ const TheSidebar = () => {
       <CSidebarMinimizer className="c-d-md-down-none"/>
     </CSidebar>
   )
-}
+}))
 
 export default React.memo(TheSidebar)

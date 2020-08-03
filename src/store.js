@@ -1,17 +1,24 @@
-import { createStore } from 'redux'
+import { action, observable } from "mobx";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
-const initialState = {
-  sidebarShow: 'responsive'
-}
+class Store {
+  constructor(initialData = {}) {}
 
-const changeState = (state = initialState, { type, ...rest }) => {
-  switch (type) {
-    case 'set':
-      return {...state, ...rest }
-    default:
-      return state
+  @observable sidebarShow = "responsive";
+
+  @action
+  setSidebarShow(val) {
+    this.sidebarShow = val;
   }
 }
 
-const store = createStore(changeState)
-export default store
+let store = null;
+
+export function initializeStore(initialData) {
+  if (store === null) {
+    store = new Store(initialData);
+  }
+
+  return store;
+}
