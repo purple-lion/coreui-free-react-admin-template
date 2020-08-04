@@ -13,16 +13,18 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
-// routes config
-import routes from '../routes'
-import navigation from "./_gnav"
-
 import {
   TheHeaderDropdown,
-}  from './index'
+}  from '../index'
 
 const TheHeader = inject("store")(observer((props) => {
-  const { store } = props
+  const {
+    store,
+    routes,
+    dashboardPath,
+    navigation,
+    settingsPath
+  } = props
   const sidebarShow = store.sidebarShow
 
   const toggleSidebar = () => {
@@ -57,12 +59,27 @@ const TheHeader = inject("store")(observer((props) => {
             return (
               <CHeaderNavItem
                 key={idx}
-                className="px-3" >
+                className="px-3">
                 <CHeaderNavLink to={el.path}>{el.name}</CHeaderNavLink>
               </CHeaderNavItem>
             )
           })
         }
+        {/*
+        // <CHeaderNavItem className="px-3" >
+        //   <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
+        // </CHeaderNavItem>
+        // <CHeaderNavItem  className="px-3">
+        //   <CHeaderNavLink to="/users">회원</CHeaderNavLink>
+        // </CHeaderNavItem>
+        // <CHeaderNavItem  className="px-3">
+        //   <CHeaderNavLink to="/courses">강의</CHeaderNavLink>
+        // </CHeaderNavItem>
+        // <CHeaderNavItem  className="px-3">
+        //   <CHeaderNavLink to="/coupons">쿠폰</CHeaderNavLink>
+        // </CHeaderNavItem>
+        */}
+
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
@@ -75,16 +92,27 @@ const TheHeader = inject("store")(observer((props) => {
           routes={routes}
         />
           <div className="d-md-down-none mfe-2 c-subheader-nav">
-            <CLink
-              className="c-subheader-nav-link"
-              aria-current="page"
-              to="/dashboard"
-            >
-              <CIcon name="cil-graph" alt="Dashboard" />&nbsp;Dashboard
-            </CLink>
-            <CLink className="c-subheader-nav-link" href="#">
-              <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
-            </CLink>
+            {
+              dashboardPath && (
+                <CLink
+                  className="c-subheader-nav-link"
+                  aria-current="page"
+                  to={dashboardPath}
+                >
+                  <CIcon name="cil-graph" alt="Dashboard" />&nbsp;Dashboard
+                </CLink>
+              )
+            }
+            {
+              settingsPath && (
+                <CLink
+                  className="c-subheader-nav-link"
+                  to={settingsPath}
+                >
+                  <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
+                </CLink>
+              )
+            }
           </div>
       </CSubheader>
     </CHeader>

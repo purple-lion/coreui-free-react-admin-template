@@ -8,7 +8,8 @@ export default [
       color: 'info',
       text: 'NEW',
     }
-  },
+  }
+  ,
   {
     _tag: 'CSidebarNavTitle',
     _children: ['Theme']
