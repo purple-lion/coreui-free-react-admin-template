@@ -1,19 +1,42 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import CIcon from '@coreui/icons-react'
-import { inject, observer} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
+import config from '../../config'
+import session from '../../lib/Session'
+import axios from 'axios'
 
 
 const UserDashboard = inject('store')(observer(
   (props) => {
-    const { store } = props
+    const {store} = props
+    const [sampleData, setSampleData] = useState({})
+    //
+    const ENDPOINT = `${config.API_BASE}/api/sample/`;
+    const getSampleApi  = async () => {
+      setSampleData({hello: "hello"})
+      try {
+        const res = await axios.get(ENDPOINT)
+        setSampleData(res.data)
+      } catch (e) {
+        console.log(e)
+        setSampleData({"error": true})
+      }
+    }
 
-  return (
-    <>
-    <div>회원 dashboard</div>
-    <pre>{ JSON.stringify(store.profile, null, 2) }</pre>
+    const accessToken = session.getAccessToken()
+    //
+    useEffect(() => {getSampleApi()}, [])
+
+    return (
+      <>
+        <div>회원 dashboard</div>
+        <pre>{JSON.stringify(store.profile, null, 2)}</pre>
+        <div>SAMPLE </div>
+        <pre>{JSON.stringify(sampleData, null, 2)}</pre>
+        <pre>http {ENDPOINT} authorization:"Bearer {accessToken}"</pre>
       </>
-  )
-}
+    )
+  }
 ))
 
 const UserList = () => {

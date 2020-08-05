@@ -19,12 +19,14 @@ class Store {
     const accessToken = cookies.get('access_token')
 
     if (accessToken) {
-      const headers = {
-        authorization: `Bearer ${accessToken}`
-      }
+      // const headers = {
+      //   authorization: `Bearer ${accessToken}`
+      // }
 
       try {
-        const res = await axios.get(`${config.AUTH_BASE}/userinfo`, {headers})
+        // const res = await axios.get(config.USERINFO_URL, {headers})
+        console.log('================ USERINFO REQUEST =============')
+        const res = await axios.get(config.USERINFO_URL, )
 
         console.log(res)
         this.profile = res.data

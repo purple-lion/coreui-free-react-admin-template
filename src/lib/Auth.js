@@ -52,10 +52,10 @@ class Auth {
       cookies.set(IS_LOGGED_IN, 'true')
 
       const authHeader = {
-        Authorization: `Bearer ${access_token}`,
+        // Authorization: `Bearer ${access_token}`,
       }
       const profileResp = await axios.post(
-        `${config.AUTH_BASE}/userinfo`,
+        config.USERINFO_URL,
         {token: access_token},
         {headers: authHeader}
       )
