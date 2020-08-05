@@ -71,6 +71,7 @@ class Auth {
   }
 
   logout = async () => {
+    console.log('------- logout -----------')
     cookies.remove(IS_LOGGED_IN)
     cookies.remove(ACCESS_TOKEN)
     cookies.remove(REFRESH_TOKEN)

@@ -6,13 +6,20 @@ import {
   TheHeader
 } from './index'
 
-const TheLayout = () => {
+import auth from "../lib/Auth"
+
+const TheLayout = (props) => {
+  const handleLogout = async () => {
+    await auth.logout()
+    props.history.push('/login')
+
+  }
 
   return (
     <div className="c-app c-default-layout">
       <TheSidebar/>
       <div className="c-wrapper">
-        <TheHeader/>
+        <TheHeader handleLogout={handleLogout}/>
         <div className="c-body">
           <TheContent/>
         </div>

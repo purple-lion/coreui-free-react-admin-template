@@ -22,7 +22,8 @@ import {
 }  from './index'
 
 const TheHeader = inject("store")(observer((props) => {
-  const { store } = props
+  const { store , handleLogout } = props
+  console.log('TheHeader', handleLogout)
   const sidebarShow = store.sidebarShow
 
   const toggleSidebar = () => {
@@ -66,7 +67,7 @@ const TheHeader = inject("store")(observer((props) => {
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
-        <TheHeaderDropdown/>
+        <TheHeaderDropdown handleLogout={handleLogout}/>
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">
