@@ -1,10 +1,11 @@
-import { action, observable } from "mobx";
+import {action, observable} from "mobx";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import config from "./config"
 
 class Store {
-  constructor(initialData = {}) {}
+  constructor(initialData = {}) {
+  }
 
   @observable sidebarShow = "responsive";
   @observable profile = null
@@ -19,16 +20,8 @@ class Store {
     const accessToken = cookies.get('access_token')
 
     if (accessToken) {
-      // const headers = {
-      //   authorization: `Bearer ${accessToken}`
-      // }
-
       try {
-        // const res = await axios.get(config.USERINFO_URL, {headers})
-        console.log('================ USERINFO REQUEST =============')
-        const res = await axios.get(config.USERINFO_URL, )
-
-        console.log(res)
+        const res = await axios.get(config.USERINFO_URL,)
         this.profile = res.data
       } catch (e) {
         console.log(e)

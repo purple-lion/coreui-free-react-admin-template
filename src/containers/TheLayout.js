@@ -1,12 +1,9 @@
 import React from 'react'
-import {
-  TheContent,
-  TheSidebar,
-  TheFooter,
-  TheHeader
-} from './index'
-
+import {TheContent, TheFooter, TheSidebar} from './index'
+import Header from "./common/Header"
 import auth from "../lib/Auth"
+import globalpNavigation from "./_gnav";
+import {routes} from "./users/_routes";
 
 const TheLayout = (props) => {
   const handleLogout = async () => {
@@ -19,7 +16,11 @@ const TheLayout = (props) => {
     <div className="c-app c-default-layout">
       <TheSidebar/>
       <div className="c-wrapper">
-        <TheHeader handleLogout={handleLogout}/>
+        <Header
+          navigation={globalpNavigation}
+          routes={routes}
+          dashboardPath="/dashboard"/>
+
         <div className="c-body">
           <TheContent/>
         </div>

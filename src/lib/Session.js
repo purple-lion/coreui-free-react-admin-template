@@ -47,8 +47,12 @@ class Session {
   }
 
   logout = () => {
-    [KEY_ACCESS_TOKEN, KEY_REFRESH_TOKEN, KEY_IS_LOGGED_IN].forEach((key, idx) => {
-      cookies.remove(key)
+    const keysToRemove = [KEY_ACCESS_TOKEN, KEY_REFRESH_TOKEN, KEY_IS_LOGGED_IN]
+    keysToRemove.forEach((key, idx) => {
+      try {
+        cookies.remove(key)
+      } catch (e) {
+      }
     })
   }
 
