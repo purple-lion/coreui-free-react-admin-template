@@ -10,7 +10,7 @@ import { Provider } from 'mobx-react';
 import { initializeStore } from './store';
 import './lib/Interceptor';
 
-const store = initializeStore({});
+const store = initializeStore();
 
 React.icons = icons;
 

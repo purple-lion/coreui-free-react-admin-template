@@ -3,8 +3,6 @@ import axios from 'axios';
 import config from './config';
 
 class Store {
-  constructor(initialData = {}) {}
-
   @observable sidebarShow = 'responsive';
   @observable profile = null;
 
@@ -20,9 +18,9 @@ class Store {
 
 let store = null;
 
-export function initializeStore(initialData) {
+export function initializeStore() {
   if (store === null) {
-    store = new Store(initialData);
+    store = new Store();
   }
 
   return store;

@@ -5,7 +5,7 @@ import config from '../config';
 import { initializeStore } from '../store';
 
 const cookies = new Cookies();
-const store = initializeStore({});
+const store = initializeStore();
 
 const KEY_IS_LOGGED_IN = 'is_logged_in';
 const KEY_ACCESS_TOKEN = 'access_token';

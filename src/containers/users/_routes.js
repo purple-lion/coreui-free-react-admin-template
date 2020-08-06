@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import CIcon from '@coreui/icons-react';
 import { inject, observer } from 'mobx-react';
 import config from '../../config';
 import session from '../../lib/Session';
@@ -32,7 +31,7 @@ const UserDashboard = inject('store')(
       <>
         <div>회원 dashboard</div>
         <pre>{JSON.stringify(store.profile, null, 2)}</pre>
-        <div>SAMPLE </div>
+        <div>SAMPLE</div>
         <pre>{JSON.stringify(sampleData, null, 2)}</pre>
         <pre>
           http {ENDPOINT} authorization:"Bearer {accessToken}"
