@@ -3,7 +3,7 @@ import {Link, Redirect} from 'react-router-dom'
 import {CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CRow} from '@coreui/react'
 import {LoginForm} from "../../../components/LoginForm";
 import {LoginErrorModal} from "../../../components/LoginErrorModal";
-import auth from "../../../lib/Auth"
+import session from "../../../lib/Session"
 
 const Login = (props) => {
   const {className} = props
@@ -13,7 +13,7 @@ const Login = (props) => {
 
   const handleLogin = async (email, password) => {
     try {
-      const resp = await auth.login(email, password)
+      const resp = await session.login(email, password)
       if (resp) {
         setRedirectToReferrer(true)
       }

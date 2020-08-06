@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import React, {Component} from 'react';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 import CouponsLayout from "./containers/coupons/CouponsLayout"
 import CoursesLayout from "./containers/courses/CoursesLayout"
 import UsersLayout from "./containers/users/UsersLayout"
 
 import './scss/style.scss';
-import PrivateRoute from './lib/ProtectedRoute';
+import ProtectedRoute from './lib/ProtectedRoute';
 
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
+
+// Containers
+const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 const mainRoutes = [
   {
@@ -30,10 +33,13 @@ const mainRoutes = [
     name: "쿠폰",
     component: CouponsLayout,
   },
+  {
+    path: "/",
+    name: "Home",
+    component: TheLayout,
+  },
 ]
 
-// Containers
-const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
 // Pages
 const Login = React.lazy(() => import('./views/pages/login/Login'));
@@ -46,27 +52,26 @@ class App extends Component {
   render() {
     return (
       <Router>
-          <React.Suspense fallback={loading}>
-            <Switch>
-              <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
-              <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
-              <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
-              <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
-              {
+        <React.Suspense fallback={loading}>
+          <Switch>
+            <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>}/>
+            <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>}/>
+            <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>}/>
+            <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>}/>
+            {
               mainRoutes.map((el, idx) => {
                 return (
-                  <PrivateRoute
-                  key={idx}
-                  path={el.path}
-                  name={el.name}
-                  component={el.component}
+                  <ProtectedRoute
+                    key={idx}
+                    path={el.path}
+                    name={el.name}
+                    component={el.component}
                   />
                 )
               })
-              }
-              <Route path="/" name="Home" render={props => <TheLayout {...props}/>} />
-            </Switch>
-          </React.Suspense>
+            }
+          </Switch>
+        </React.Suspense>
       </Router>
     );
   }
