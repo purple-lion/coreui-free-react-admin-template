@@ -12,7 +12,11 @@ class Store {
   }
 
   loadUserProfile = () => {
-    axios.get(config.USERINFO_URL).then((res) => (this.profile = res.data));
+    axios
+      .get(config.USERINFO_URL)
+      .then((res) => (this.profile = res.data))
+      .catch((error) => {return})
+    ;
   };
 }
 
