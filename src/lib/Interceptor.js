@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 import session from './Session';
-import { redirectToLoginPage } from './history';
+import { history, redirectToLoginPage } from './history';
 
 axios.interceptors.request.use((cfg) => {
   if (cfg.url === config.TOKEN_URL) {
@@ -63,7 +63,9 @@ axios.interceptors.response.use(
           })
           .catch((error) => {
             session.logout();
-            return redirectToLoginPage();
+            history.push("/#/login")
+            window.location.reload();
+            return false
           });
       }
 
