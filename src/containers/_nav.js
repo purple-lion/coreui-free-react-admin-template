@@ -7,7 +7,6 @@ export default [
     badge: {
       color: 'info',
       text: 'NEW',
-    }
-  }
-]
-
+    },
+  },
+];
