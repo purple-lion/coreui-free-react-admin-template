@@ -1,19 +1,19 @@
-import axios from "axios";
-import Cookies from "universal-cookie";
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-import config from "../config";
-import { initializeStore } from "../store";
+import config from '../config';
+import { initializeStore } from '../store';
 
 const cookies = new Cookies();
 const store = initializeStore({});
 
-const KEY_IS_LOGGED_IN = "is_logged_in";
-const KEY_ACCESS_TOKEN = "access_token";
-const KEY_REFRESH_TOKEN = "refresh_token";
+const KEY_IS_LOGGED_IN = 'is_logged_in';
+const KEY_ACCESS_TOKEN = 'access_token';
+const KEY_REFRESH_TOKEN = 'refresh_token';
 
 class Session {
   isAuthenticated = () => {
-    if (cookies.get(KEY_IS_LOGGED_IN) !== "true") {
+    if (cookies.get(KEY_IS_LOGGED_IN) !== 'true') {
       return false;
     }
 
@@ -28,12 +28,12 @@ class Session {
     const params = new URLSearchParams({
       username: email,
       password: password,
-      grant_type: "password",
+      grant_type: 'password',
       scope: config.defaultScope,
     });
     const headers = {
       authorization: `Basic ${btoa(
-        `${config.clientId}:${config.clientSecret}`
+        `${config.clientId}:${config.clientSecret}`,
       )}`,
     };
 
@@ -43,7 +43,7 @@ class Session {
 
       this.setAccessToken(access_token);
       this.setRefreshToken(refresh_token);
-      this.setIsLoggedIn("true");
+      this.setIsLoggedIn('true');
 
       const profileResp = await axios.post(config.USERINFO_URL);
       store.profile = profileResp.data;

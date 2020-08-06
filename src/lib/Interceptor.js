@@ -1,7 +1,7 @@
-import axios from "axios";
-import config from "../config";
-import session from "./Session";
-import { redirectToLoginPage } from "./history";
+import axios from 'axios';
+import config from '../config';
+import session from './Session';
+import { redirectToLoginPage } from './history';
 
 axios.interceptors.request.use((cfg) => {
   if (cfg.url === config.TOKEN_URL) {
@@ -10,7 +10,7 @@ axios.interceptors.request.use((cfg) => {
     cfg.url.startsWith(config.API_BASE) ||
     cfg.url.startsWith(config.USERINFO_URL)
   ) {
-    cfg.headers["authorization"] = `Bearer ${session.getAccessToken()}`;
+    cfg.headers['authorization'] = `Bearer ${session.getAccessToken()}`;
   }
 
   return cfg;
@@ -29,11 +29,11 @@ axios.interceptors.response.use(
     } catch (e) {}
 
     if (originalRequest.url === TOKEN_URL) {
-      console.log("TOKEN REQUEST ERROR");
+      console.log('TOKEN REQUEST ERROR');
     }
 
     if (
-      (error.message === "Network Error" || 401 === errResponseStatus) &&
+      (error.message === 'Network Error' || 401 === errResponseStatus) &&
       !originalRequest._retry
     ) {
       const refreshToken = session.getRefreshToken();
@@ -42,12 +42,12 @@ axios.interceptors.response.use(
       if (refreshToken) {
         const headers = {
           Authorization: `Basic ${btoa(
-            `${config.clientId}:${config.clientSecret}`
+            `${config.clientId}:${config.clientSecret}`,
           )}`,
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         };
         const params = new URLSearchParams({
-          grant_type: "refresh_token",
+          grant_type: 'refresh_token',
           refresh_token: refreshToken,
         });
 
@@ -70,5 +70,5 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
     Promise.reject(error);
-  }
+  },
 );

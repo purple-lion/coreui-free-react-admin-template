@@ -1,13 +1,12 @@
-import {action, observable} from "mobx";
-import axios from "axios";
-import config from "./config"
+import { action, observable } from 'mobx';
+import axios from 'axios';
+import config from './config';
 
 class Store {
-  constructor(initialData = {}) {
-  }
+  constructor(initialData = {}) {}
 
-  @observable sidebarShow = "responsive";
-  @observable profile = null
+  @observable sidebarShow = 'responsive';
+  @observable profile = null;
 
   @action
   setSidebarShow(val) {
@@ -15,10 +14,8 @@ class Store {
   }
 
   loadUserProfile = () => {
-    axios.get(config.USERINFO_URL).then(
-      (res) => this.profile = res.data
-    )
-  }
+    axios.get(config.USERINFO_URL).then((res) => (this.profile = res.data));
+  };
 }
 
 let store = null;
