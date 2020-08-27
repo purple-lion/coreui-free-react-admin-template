@@ -1,102 +1,74 @@
-import React, {useEffect, useState} from "react";
-import config from "../../config";
-import axios from "axios";
-import {Card, Col, Row} from "reactstrap";
-import {CRow, CCol, CCard, CCardHeader, CCardBody} from "@coreui/react";
-import * as R from 'ramda'
-import BootstrapTable from 'react-bootstrap-table-next';
-import {Link} from "react-router-dom";
+import React, {Component} from 'react'
+import {Card, CardBody, CardHeader, Col, Row} from 'reactstrap'
+import queryString from 'query-string'
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
+import CouponGroupListTable from '../../components/CouponGroupListTable'
 
-export const CouponGroupList = () => {
-  const [couponGroupList, setCouponGroupList] = useState({
-    loading: true,
-    data: []
-  });
 
-  const ENDPOINT = `${config.API_BASE}/admin/coupons/coupon-groups`;
-  const getCouponGroupList = async () => {
+class CouponGroupList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      page: 1,
+      sizePerPage: 20,
+      pagination: {
+        count: 100,
+      },
+    }
+  }
+
+  componentDidMount = async () => {
+    const {page: _page, per_page: _sizePerPage} = queryString.parse(
+      this.props.location.search
+    )
+
+    let page = 1,
+      sizePerPage = this.state.sizePerPage
+
     try {
-      const res = await axios.get(ENDPOINT);
-      setCouponGroupList(
-        {
-          loading: false,
-          data: res.data.data
-        }
-      );
+      if (_page) {
+        page = parseInt(_page)
+      }
     } catch (e) {
-      console.log(e);
-      setCouponGroupList({error: true});
-    }
-  };
-
-  const columns = [{
-    dataField: 'id',
-    text: '#',
-    headerStyle: {
-      width: '4em'
-    },
-    formatter: (cell, row, rowIndex, formatExtraData) => {
-      const { id, } = row
-      return (
-        <div>
-          <Link to={`/coupons/coupon-groups/${id}`}>{id}</Link>
-        </div>
-      )
-    }
-  }, {
-    dataField: 'name',
-    text: '쿠폰그룹 이름',
-    formatter: (cell, row, rowIndex, formatExtraData) => {
-      const { id, name } = row
-      return (
-       <div>
-         <Link to={`/coupons/coupon-groups/${id}`}>{name}</Link>
-       </div>
-      )
     }
 
-  }, {
-    dataField: 'created_at',
-    text: '생성일',
-    headerStyle: {
-      width: '16em'
+    try {
+      if (_sizePerPage) {
+        sizePerPage = parseInt(_sizePerPage)
+      }
+    } catch (e) {
     }
-  }];
 
+    this.setState({page, sizePerPage,})
+  }
 
-  const {
-    loading, data
-  } = couponGroupList
+  handleTableChange = async (type, {page, sizePerPage}) => {
+    this.props.history.push(
+      `/coupons/coupon-groups/-list?page=${page}&per_page=${sizePerPage}`
+    )
 
-  useEffect(() => {
-    getCouponGroupList()
-  }, [])
+    this.setState(() => ({page, sizePerPage,}))
+  }
 
-  console.log('data', data)
+  render() {
+    return (
+      <div className="animated fadeIn">
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"/> 쿠폰 그룹 목록
+              </CardHeader>
+              <CardBody>
+                <CouponGroupListTable/>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    )
+  }
+}
 
-  return (
-    <>
-      <CRow>
-        <CCol>
-          <CCard>
-            <CCardHeader>쿠폰그룹 목록</CCardHeader>
-            <CCardBody>
-              {
-                loading ? (
-                  <div>loading</div>
-                ) : R.isEmpty(data) ? (
-                  <div>No CouponGroups</div>
-                ) : (
-                  <>
-                    {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-                    <BootstrapTable keyField='id' data={data} columns={columns}/>
-                  </>
-                )
-              }
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-    </>
-  );
-};
+export default CouponGroupList

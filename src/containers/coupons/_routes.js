@@ -1,24 +1,14 @@
 import React from 'react';
 import {CouponDashboard} from "./CouponDashboard";
-import {CouponList} from "./CouponList";
-import {CouponGroupList} from "./CouponGroupList";
-import {CRow, CCol, CCard, CCardHeader, CCardBody} from "@coreui/react";
+import CouponList from "./CouponList";
+import CouponGroupList from "./CouponGroupList";
+import {CCard, CCardBody, CCardHeader, CCol, CRow} from "@coreui/react";
+import {CouponGroupDetail} from "./CouponGroupDetail";
+import UserCouponList from "./UserCouponList";
 
 const CouponHistory = () => {
   return <div>쿠폰 사용 이력</div>;
 };
-
-const CouponGroupDetail = (props) => {
-  const {id} = props.match.params
-
-  return (
-    <>
-      <div>쿠폰그룹 상세</div>
-      <pre>{id}</pre>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
-    </>
-  )
-}
 
 const CouponGroupCreate = () => {
   return (
@@ -69,9 +59,9 @@ export const routes = [
     component: CouponList,
   },
   {
-    path: '/coupons/history',
-    name: '사용 이력',
+    path: '/coupons/user-coupons/list',
+    name: '사용자에게 등록된 쿠폰 목록',
     exact: true,
-    component: CouponHistory,
+    component: UserCouponList,
   },
 ];

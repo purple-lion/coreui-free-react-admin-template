@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {Card, CardBody, CardHeader, Col, Row} from 'reactstrap'
 import queryString from 'query-string'
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
-import CouponListTable from '../../components/CouponListTable'
+import UserCouponListTable from '../../components/UserCouponListTable'
 
 
-class CouponList extends Component {
+class UserCouponList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -58,10 +58,10 @@ class CouponList extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"/> 쿠폰 코드 목록
+                <i className="fa fa-align-justify"/> 사용자에게 등록된 쿠폰 목록
               </CardHeader>
               <CardBody>
-                <CouponListTable/>
+                <UserCouponListTable/>
               </CardBody>
             </Card>
           </Col>
@@ -71,5 +71,5 @@ class CouponList extends Component {
   }
 }
 
-export default CouponList
+export default UserCouponList
 

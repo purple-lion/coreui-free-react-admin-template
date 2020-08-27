@@ -8,6 +8,9 @@ import UsersLayout from './containers/users/UsersLayout';
 import './scss/style.scss';
 import ProtectedRoute from './lib/ProtectedRoute';
 
+import './App.scss'
+
+
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>

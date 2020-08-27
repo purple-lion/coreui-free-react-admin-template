@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { inject, observer } from 'mobx-react';
+import React, {useEffect, useState} from 'react';
+import {inject, observer} from 'mobx-react';
 import config from '../../config';
 import session from '../../lib/Session';
 import axios from 'axios';
+import {UserList} from './UserList'
 
 const UserDashboard = inject('store')(
   observer((props) => {
-    const { store } = props;
+    const {store} = props;
     const [sampleData, setSampleData] = useState({});
     //
     const ENDPOINT = `${config.API_BASE}/api/sample/`;
     const getSampleApi = async () => {
-      setSampleData({ hello: 'hello' });
+      setSampleData({hello: 'hello'});
       try {
         const res = await axios.get(ENDPOINT);
         setSampleData(res.data);
       } catch (e) {
         console.log(e);
-        setSampleData({ error: true });
+        setSampleData({error: true});
       }
     };
 
@@ -41,9 +42,9 @@ const UserDashboard = inject('store')(
   }),
 );
 
-const UserList = () => {
-  return <div>users list</div>;
-};
+// const UserList = () => {
+//   return <div>users list</div>;
+// };
 
 const UserListFoo = () => {
   return <div>user list (foo)</div>;

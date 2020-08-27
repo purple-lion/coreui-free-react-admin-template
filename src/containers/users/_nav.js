@@ -6,7 +6,7 @@ export const navigation = [
     icon: 'cil-speedometer',
     badge: {
       color: 'info',
-      text: 'NEW',
+      text: '준비중',
     },
   },
   {
@@ -18,5 +18,9 @@ export const navigation = [
     name: '회원 목록',
     to: '/users/list',
     icon: 'cil-list',
+    badge: {
+      color: 'info',
+      text: '준비중',
+    },
   },
 ];

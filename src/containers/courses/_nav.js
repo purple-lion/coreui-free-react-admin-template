@@ -7,7 +7,7 @@ export const navigation = [
     icon: 'cil-speedometer',
     badge: {
       color: 'info',
-      text: 'NEW',
+      text: '준비중',
     },
   },
   {
@@ -19,5 +19,19 @@ export const navigation = [
     name: '강의 목록',
     to: '/courses/list',
     icon: 'cil-list',
+    badge: {
+      color: 'info',
+      text: '준비중',
+    },
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: '사용자 수강 목록',
+    to: '/courses/subscriptions/list',
+    icon: 'cil-list',
+    badge: {
+      color: 'info',
+      text: '준비중',
+    },
   },
 ];

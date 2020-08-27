@@ -6,7 +6,7 @@ export const navigation = [
     icon: 'cil-speedometer',
     badge: {
       color: 'info',
-      text: 'NEW',
+      text: '준비중',
     },
   },
   {
@@ -18,6 +18,10 @@ export const navigation = [
     name: '쿠폰 그룹 생성',
     to: '/coupons/coupon-groups/create',
     icon: 'cil-pencil',
+    badge: {
+      color: 'info',
+      text: '준비중',
+    },
   },
   {
     _tag: 'CSidebarNavItem',
@@ -27,14 +31,14 @@ export const navigation = [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: '쿠폰 목록',
+    name: '쿠폰 코드 목록',
     to: '/coupons/coupons/list',
     icon: 'cil-list',
   },
   {
     _tag: 'CSidebarNavItem',
-    name: '쿠폰 사용 이력',
-    to: '/coupons/coupon-history/list',
+    name: '사용자에게 등록된 쿠폰코드',
+    to: '/coupons/user-coupons/list',
     icon: 'cil-list',
   },
 ];
